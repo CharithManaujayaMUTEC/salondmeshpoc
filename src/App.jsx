@@ -58,7 +58,7 @@ export default function App() {
         <About about={settings.about} stats={settings.stats} />
         <Process steps={process} />
         <Gallery items={gallery} />
-        <Gallery items={clients} id="clients" bg="bg-ink" tall eyebrow="Our clients" title={<>Client <span className="gold-text italic">looks</span></>} />
+        <Gallery items={clients} id="clients" bg="bg-ink" tall eyebrow="Happy customers" title={<>Fresh from <span className="gold-text italic">the chair</span></>} />
         <Team items={team} />
         <Testimonials items={testimonials} />
         <Contact settings={settings} services={services} />
