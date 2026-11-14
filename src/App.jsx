@@ -46,7 +46,7 @@ export default function App() {
     )
   }
 
-  const { settings, hero, services, process, gallery: all, team, testimonials } = data
+  const { settings, hero, services, process, gallery: all, team, testimonials, booking } = data
   const gallery = all.filter((g) => g.group !== 'client')
   const clients = all.filter((g) => g.group === 'client')
   return (
@@ -61,7 +61,7 @@ export default function App() {
         <Gallery items={clients} id="clients" bg="bg-ink" tall eyebrow="Happy customers" title={<>Fresh from <span className="gold-text italic">the chair</span></>} />
         <Team items={team} />
         <Testimonials items={testimonials} />
-        <Contact settings={settings} services={services} />
+        <Contact settings={settings} services={services} booking={booking} offline={!!data.offline} />
       </main>
       <Footer settings={settings} />
       <Floating settings={settings} />

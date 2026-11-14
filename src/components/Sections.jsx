@@ -34,7 +34,13 @@ export function Services({ items }) {
               </div>
               <h3 className="relative mt-7 font-display text-3xl text-cream">{s.title}</h3>
               <p className="relative mt-3 text-mute">{s.description}</p>
-              {s.price && <p className="relative mt-6 border-t border-line pt-4 text-sm uppercase tracking-[.18em] text-gold">{s.price}</p>}
+              <div className="relative mt-6 flex items-center justify-between gap-3 border-t border-line pt-4">
+                <span className="text-sm uppercase tracking-[.18em] text-gold">{s.price}</span>
+                {s.bookable !== false && (
+                  <a href="#appointment" onClick={() => window.dispatchEvent(new CustomEvent('book-service', { detail: s.id }))}
+                    className="rounded-full border border-gold/40 px-4 py-1.5 text-xs uppercase tracking-[.15em] text-cream transition hover:bg-gold hover:text-ink">Book</a>
+                )}
+              </div>
             </motion.article>
           ))}
         </div>

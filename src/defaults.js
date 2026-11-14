@@ -37,6 +37,7 @@ const clients = [
 
 export const defaults = {
   offline: true,
+  booking: { enabled: false, methods: [] },
   settings: {
     site_name: 'Salon Dmesh',
     tagline: 'Where every strand finds its style',
