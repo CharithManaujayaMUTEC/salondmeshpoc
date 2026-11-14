@@ -5,14 +5,22 @@ const img = (n) => `${base}/img/img_${n}.webp`
 const vid = (n) => `${base}/video/${n}.mp4`
 const pimg = (n) => `${base}/img/${n}.webp`
 
+// Main gallery alternates salon / people. [image, title, category, video?]
 const salon = [
-  ['9678', 'Reception', 'Salon'], ['p:people-colour', 'Colour in progress', 'At work'], ['9667', 'Wash lounge', 'Salon'],
-  ['9674', 'Styling station', 'Stations'], ['p:people-care', 'Premium hair care', 'At work'], ['9673', 'The main floor', 'Salon'],
-  ['9676', 'Arched mirrors', 'Stations'], ['9666', 'Wash basins', 'Details'], ['9669', 'Gold accents', 'Details'],
-  ['9672', 'Signature chair', 'Stations'], ['9679', 'Premium leather', 'Details'], ['9686', 'Styling chair', 'Stations'],
-].map(([n, title, category], i) => ({
-  id: `g${i}`, group: 'salon', title, category, type: 'image',
-  image: n.startsWith('p:') ? pimg(n.slice(2)) : img(n), video: null, featured: i < 3,
+  ['9678', 'Reception', 'Salon'],
+  ['p:people-colour', 'Colour in progress', 'At work'],
+  ['9667', 'Wash lounge', 'Salon'],
+  ['p:styling-salon', 'Styling in action', 'At work', 'styling-salon'],
+  ['9674', 'Styling station', 'Stations'],
+  ['p:people-care', 'Premium hair care', 'At work'],
+  ['9673', 'The main floor', 'Salon'],
+  ['p:people-curls', 'Soft golden curls', 'At work'],
+  ['9676', 'Arched mirrors', 'Stations'],
+  ['9666', 'Wash basins', 'Details'], ['9669', 'Gold accents', 'Details'], ['9672', 'Signature chair', 'Stations'],
+  ['9679', 'Premium leather', 'Details'], ['9686', 'Styling chair', 'Stations'],
+].map(([n, title, category, v], i) => ({
+  id: `g${i}`, group: 'salon', title, category, type: v ? 'video' : 'image',
+  image: n.startsWith('p:') ? pimg(n.slice(2)) : img(n), video: v ? vid(v) : null, featured: i < 3,
 }))
 
 // Happy customers (stock placeholders until real client media is added in the admin)
@@ -76,9 +84,9 @@ export const defaults = {
   },
   hero: [
     { id: 'h1', eyebrow: 'Salon Dmesh · Mirihana', title: 'Style that', highlight: 'finds you', subtitle: 'Premium hair care from stylists who listen first.', type: 'video', image: pimg('styling-salon'), video: vid('styling-salon'), button_label: 'Book now', button_link: '#appointment' },
-    { id: 'h2', eyebrow: 'Expert stylists', title: 'Cut. Colour.', highlight: 'Confidence.', subtitle: 'Personal consultations and finishes made for you.', type: 'image', image: pimg('people-trim'), video: null, button_label: 'Our services', button_link: '#services' },
-    { id: 'h3', eyebrow: 'Colour & styling', title: 'Beauty in', highlight: 'every curl', subtitle: 'From soft waves to bridal updos, crafted with care.', type: 'image', image: pimg('people-curls'), video: null, button_label: 'See happy customers', button_link: '#clients' },
-    { id: 'h4', eyebrow: 'Luxury wash lounge', title: 'Relax. Refresh.', highlight: 'Renew.', subtitle: 'Spa-style basins with plush leather seating.', type: 'image', image: img('9667'), video: null, button_label: 'Explore the salon', button_link: '#gallery' },
+    { id: 'h2', eyebrow: 'Welcome to Salon Dmesh', title: 'A calm, modern', highlight: 'space', subtitle: 'Warm light, arched mirrors and chairs made for comfort.', type: 'image', image: img('9678'), video: null, button_label: 'Explore the salon', button_link: '#gallery' },
+    { id: 'h3', eyebrow: 'Expert stylists', title: 'Cut. Colour.', highlight: 'Confidence.', subtitle: 'Personal consultations and finishes made for you.', type: 'image', image: pimg('people-trim'), video: null, button_label: 'See happy customers', button_link: '#clients' },
+    { id: 'h4', eyebrow: 'Luxury wash lounge', title: 'Relax. Refresh.', highlight: 'Renew.', subtitle: 'Spa-style basins with plush leather seating.', type: 'image', image: img('9667'), video: null, button_label: 'Our services', button_link: '#services' },
   ],
   services: [
     ['Hair Styling', 'Cuts, blow-dries and finishes tailored to your face and lifestyle.', 'scissors', '9674', 'From Rs. 1,500'],
@@ -94,13 +102,7 @@ export const defaults = {
     ['Crafting your look', 'Our stylists bring your look to life with precision and care.', 'scissors'],
     ['Finish & glow', 'Final styling, aftercare tips and a mirror moment you will love.', 'sparkles'],
   ].map(([title, description, icon], i) => ({ id: `p${i}`, title, description, icon })),
-  gallery: [
-    ...salon.slice(0, 3),
-    { id: 'gv0', group: 'salon', title: 'Styling in action', category: 'At work', type: 'video', image: pimg('styling-salon'), video: vid('styling-salon'), featured: false },
-    { id: 'gv1', group: 'salon', title: 'Salon reel', category: 'Salon', type: 'video', image: img('9674'), video: vid('salon-reel'), featured: false },
-    ...salon.slice(3),
-    ...clients,
-  ],
+  gallery: [...salon, ...clients],
   team: [],
   testimonials: [],
 }
