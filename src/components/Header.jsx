@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
-const links = [
+const allLinks = [
   ['Home', '#home'], ['Services', '#services'], ['About', '#about'],
-  ['Process', '#process'], ['Gallery', '#gallery'], ['Contact', '#appointment'],
+  ['Process', '#process'], ['Gallery', '#gallery'], ['Clients', '#clients'], ['Contact', '#appointment'],
 ]
 
 export default function Header({ settings }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('#home')
+  const [links, setLinks] = useState(allLinks)
 
   useEffect(() => {
+    const ls = allLinks.filter(([, h]) => document.querySelector(h))
+    setLinks(ls)
     const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -20,7 +23,7 @@ export default function Header({ settings }) {
       (es) => es.forEach((e) => e.isIntersecting && setActive('#' + e.target.id)),
       { rootMargin: '-45% 0px -50% 0px' },
     )
-    links.forEach(([, h]) => { const el = document.querySelector(h); el && io.observe(el) })
+    ls.forEach(([, h]) => { const el = document.querySelector(h); el && io.observe(el) })
     return () => { window.removeEventListener('scroll', onScroll); io.disconnect() }
   }, [])
 

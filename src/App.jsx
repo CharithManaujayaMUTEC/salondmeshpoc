@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { API } from './lib.jsx'
+import { defaults } from './defaults.js'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import Gallery from './components/Gallery.jsx'
@@ -10,13 +11,18 @@ import { Floating, Footer } from './components/Footer.jsx'
 
 export default function App() {
   const [data, setData] = useState(null)
-  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
-    fetch(`${API}/api/site`, { headers: { Accept: 'application/json' } })
+    // If the backend is down or slow, fall back to the built-in default content (incl. videos).
+    let cancelled = false
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), 6000)
+    fetch(`${API}/api/site`, { headers: { Accept: 'application/json' }, signal: ctrl.signal })
       .then((r) => { if (!r.ok) throw new Error(); return r.json() })
-      .then(setData)
-      .catch(() => setFailed(true))
+      .then((d) => !cancelled && setData(d))
+      .catch(() => !cancelled && setData(defaults))
+      .finally(() => clearTimeout(timer))
+    return () => { cancelled = true; clearTimeout(timer); ctrl.abort() }
   }, [])
 
   useEffect(() => {
@@ -31,17 +37,6 @@ export default function App() {
     }
   }, [data])
 
-  if (failed) {
-    return (
-      <div className="grid min-h-screen place-items-center px-6 text-center">
-        <div>
-          <h1 className="font-display text-4xl text-cream">We'll be right back</h1>
-          <p className="mt-3 text-mute">The site could not load right now. Please refresh in a moment.</p>
-        </div>
-      </div>
-    )
-  }
-
   if (!data) {
     return (
       <div className="grid min-h-screen place-items-center">
@@ -51,7 +46,9 @@ export default function App() {
     )
   }
 
-  const { settings, hero, services, process, gallery, team, testimonials } = data
+  const { settings, hero, services, process, gallery: all, team, testimonials } = data
+  const gallery = all.filter((g) => g.group !== 'client')
+  const clients = all.filter((g) => g.group === 'client')
   return (
     <>
       <Header settings={settings} />
@@ -61,6 +58,7 @@ export default function App() {
         <About about={settings.about} stats={settings.stats} />
         <Process steps={process} />
         <Gallery items={gallery} />
+        <Gallery items={clients} id="clients" bg="bg-ink" tall eyebrow="Our clients" title={<>Client <span className="gold-text italic">looks</span></>} />
         <Team items={team} />
         <Testimonials items={testimonials} />
         <Contact settings={settings} services={services} />

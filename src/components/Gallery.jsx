@@ -3,7 +3,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, X, ZoomIn } from 'lucide-react'
 import { Heading } from './Sections.jsx'
 
-export default function Gallery({ items }) {
+export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the salon', title = <>Our <span className="gold-text italic">gallery</span></>, tall = false, bg = 'bg-coal' }) {
   const [cat, setCat] = useState('All')
   const [lb, setLb] = useState(null)
   const cats = useMemo(() => ['All', ...new Set(items.map((i) => i.category).filter(Boolean))], [items])
@@ -22,9 +22,9 @@ export default function Gallery({ items }) {
   const cur = lb !== null ? shown[lb] : null
 
   return (
-    <section id="gallery" className="relative bg-coal py-24 md:py-36">
+    <section id={id} className={`relative ${bg} py-24 md:py-36`}>
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Heading eyebrow="Inside the salon" title={<>Our <span className="gold-text italic">gallery</span></>} />
+        <Heading eyebrow={eyebrow} title={title} />
         {cats.length > 2 && (
           <div className="-mt-6 mb-12 flex flex-wrap justify-center gap-2.5">
             {cats.map((c) => (
@@ -34,13 +34,15 @@ export default function Gallery({ items }) {
           </div>
         )}
         <LayoutGroup>
-          <motion.div layout className="grid auto-rows-[200px] grid-cols-2 gap-3 md:auto-rows-[240px] md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+          <motion.div layout className={`${tall ? 'auto-rows-[260px] md:auto-rows-[360px] grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'auto-rows-[200px] md:auto-rows-[240px] grid-cols-2 md:grid-cols-3 lg:grid-cols-4'} grid gap-3 md:gap-4`}>
             <AnimatePresence>
               {shown.map((g, i) => (
                 <motion.button layout key={g.id} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.5 }}
                   onClick={() => setLb(i)}
-                  className={`group relative overflow-hidden rounded-2xl bg-panel text-left ${g.featured ? 'col-span-2 row-span-2' : ''}`}>
-                  <img src={g.image} alt={g.title || ''} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110" />
+                  className={`group relative overflow-hidden rounded-2xl bg-panel text-left ${g.featured && !tall ? 'col-span-2 row-span-2' : ''}`}>
+                  {g.type === 'video' && g.video
+                    ? <video src={g.video} poster={g.image} autoPlay muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
+                    : <img src={g.image} alt={g.title || ''} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent opacity-70 transition-opacity group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                     <div className="text-[.65rem] uppercase tracking-[.25em] text-gold">{g.category}</div>

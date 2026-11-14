@@ -64,7 +64,7 @@ export default function Contact({ settings, services }) {
                     </select>
                   </div>
                   <div className="sm:col-span-2"><textarea className="field" rows={4} placeholder="Anything we should know?" value={f.message} onChange={set('message')} /></div>
-                  {state === 'error' && <p className="text-red-400 sm:col-span-2">Something went wrong. Please try again or call us.</p>}
+                  {state === 'error' && <p className="text-red-400 sm:col-span-2">We couldn't send your request right now. Please call us{settings.phone ? <> on <a className="underline" href={`tel:${digits(settings.phone)}`}>{settings.phone}</a></> : null} or message us on WhatsApp.</p>}
                   <div className="sm:col-span-2">
                     <button className="btn-gold w-full justify-center sm:w-auto" disabled={state === 'sending'}>
                       {state === 'sending' ? <><Loader2 className="animate-spin" size={18} /> Sending</> : (cta.button || 'Book appointment')}
