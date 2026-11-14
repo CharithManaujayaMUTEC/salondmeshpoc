@@ -5,14 +5,14 @@ import { digits, socialMap } from '../lib.jsx'
 
 export function Footer({ settings }) {
   return (
-    <footer className="border-t border-line bg-coal pb-8 pt-16">
+    <footer className="theme-dark bg-ink pb-8 pt-16">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-3 md:px-8">
         <div>
           {settings.logo ? <img src={settings.logo} alt={settings.site_name} className="h-12 w-auto" /> : <span className="font-display text-3xl text-cream">{settings.site_name}</span>}
           <p className="mt-4 max-w-xs text-mute">{settings.tagline}</p>
         </div>
         <div>
-          <h4 className="mb-4 text-xs uppercase tracking-[.25em] text-gold">Explore</h4>
+          <h4 className="mb-4 text-xs font-semibold uppercase tracking-[.2em] text-mute">Explore</h4>
           <ul className="space-y-2 text-cream/80">
             {[['Services', '#services'], ['About', '#about'], ['Gallery', '#gallery'], ['Book now', '#appointment']].map(([l, h]) => (
               <li key={h}><a href={h} className="transition hover:text-gold">{l}</a></li>
@@ -20,7 +20,7 @@ export function Footer({ settings }) {
           </ul>
         </div>
         <div>
-          <h4 className="mb-4 text-xs uppercase tracking-[.25em] text-gold">Follow us</h4>
+          <h4 className="mb-4 text-xs font-semibold uppercase tracking-[.2em] text-mute">Follow us</h4>
           <div className="flex gap-3">
             {settings.socials?.map((s, i) => {
               const I = socialMap[s.platform] || MessageCircle

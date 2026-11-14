@@ -25,7 +25,7 @@ export default function Hero({ slides, settings }) {
   }
 
   return (
-    <section id="home" className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-ink">
+    <section id="home" className="theme-dark relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-ink">
       <AnimatePresence mode="sync">
         <motion.div key={s.id ?? 'x'} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.6 }}>
           {s.type === 'video' && s.video
@@ -34,28 +34,28 @@ export default function Hero({ slides, settings }) {
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/45 to-ink/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
+      <div className="absolute inset-0 bg-black/45" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/50" />
       {bokeh.map(([l, t, size, d], k) => (
         <span key={k} className="bokeh" style={{ left: l, top: t, width: size, height: size, animationDelay: `${d}s` }} />
       ))}
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-5 md:px-8">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center justify-center px-5 text-center md:px-8">
         <AnimatePresence mode="wait">
-          <motion.div key={s.id ?? 'x'} className="max-w-2xl" initial="hidden" animate="show" exit={{ opacity: 0, y: -20, transition: { duration: 0.4 } }}
+          <motion.div key={s.id ?? 'x'} className="mx-auto max-w-4xl" initial="hidden" animate="show" exit={{ opacity: 0, y: -20, transition: { duration: 0.4 } }}
             variants={{ show: { transition: { staggerChildren: 0.14 } } }}>
             {s.eyebrow && (
               <motion.p variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }} className="section-eyebrow mb-6">{s.eyebrow}</motion.p>
             )}
             <motion.h1 variants={{ hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.9 } } }}
-              className="font-display text-[3.1rem] font-medium leading-[1.02] text-cream sm:text-7xl lg:text-[5.6rem]">
+              className="font-display text-[2.8rem] leading-[1.03] text-cream sm:text-7xl lg:text-[6.2rem]">
               {s.title}{' '}
               {s.highlight && <span className="gold-text italic">{s.highlight}</span>}
             </motion.h1>
             {s.subtitle && (
-              <motion.p variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }} className="mt-6 max-w-lg text-lg text-cream/75">{s.subtitle}</motion.p>
+              <motion.p variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }} className="mx-auto mt-6 max-w-xl text-lg text-cream/80 md:text-xl">{s.subtitle}</motion.p>
             )}
-            <motion.div variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }} className="mt-10 flex flex-wrap items-center gap-4">
+            <motion.div variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }} className="mt-10 flex flex-wrap items-center justify-center gap-4">
               {s.button_label && <a href={s.button_link || '#appointment'} onClick={go(s.button_link)} className="btn-gold">{s.button_label}</a>}
               <a href="#appointment" onClick={go('#appointment')} className="btn-ghost">Book appointment</a>
             </motion.div>

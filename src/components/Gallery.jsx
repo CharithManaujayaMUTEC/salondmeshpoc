@@ -3,7 +3,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, X, ZoomIn } from 'lucide-react'
 import { Heading } from './Sections.jsx'
 
-export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the salon', title = <>Our <span className="gold-text italic">gallery</span></>, tall = false, bg = 'bg-coal' }) {
+export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the salon', title = <>Our <span className="gold-text italic">gallery</span></>, tall = false, bg = 'bg-coal', dark = false }) {
   const [cat, setCat] = useState('All')
   const [lb, setLb] = useState(null)
   const cats = useMemo(() => ['All', ...new Set(items.map((i) => i.category).filter(Boolean))], [items])
@@ -22,7 +22,7 @@ export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the s
   const cur = lb !== null ? shown[lb] : null
 
   return (
-    <section id={id} className={`relative ${bg} py-24 md:py-36`}>
+    <section id={id} className={`relative ${bg} ${dark ? 'theme-dark' : ''} py-24 md:py-36`}>
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Heading eyebrow={eyebrow} title={title} />
         {cats.length > 2 && (
@@ -39,7 +39,7 @@ export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the s
               {shown.map((g, i) => (
                 <motion.button layout key={g.id} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.5 }}
                   onClick={() => setLb(i)}
-                  className={`group relative overflow-hidden rounded-2xl bg-panel text-left ${g.featured && !tall ? 'col-span-2 row-span-2' : ''}`}>
+                  className={`group relative overflow-hidden rounded-3xl bg-panel text-left ${g.featured && !tall ? 'col-span-2 row-span-2' : ''}`}>
                   {g.type === 'video' && g.video
                     ? <video src={g.video} poster={g.image} autoPlay muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
                     : <img src={g.image} alt={g.title || ''} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110" />}
@@ -60,7 +60,7 @@ export default function Gallery({ items, id = 'gallery', eyebrow = 'Inside the s
 
       <AnimatePresence>
         {cur && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[70] grid place-items-center bg-ink/95 p-4 backdrop-blur-xl" onClick={() => setLb(null)}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="theme-dark fixed inset-0 z-[70] grid place-items-center bg-black/95 p-4 backdrop-blur-xl" onClick={() => setLb(null)}>
             <button className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-line text-cream hover:text-gold" onClick={() => setLb(null)} aria-label="Close"><X /></button>
             <button className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line text-cream hover:text-gold md:left-8" onClick={(e) => { e.stopPropagation(); step(-1) }} aria-label="Previous"><ChevronLeft /></button>
             <button className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line text-cream hover:text-gold md:right-8" onClick={(e) => { e.stopPropagation(); step(1) }} aria-label="Next"><ChevronRight /></button>

@@ -14,7 +14,7 @@ export default function Contact({ settings, services, booking, offline }) {
 
   return (
     <section id="appointment" className="relative overflow-hidden bg-ink py-24 md:py-36">
-      <div className="pointer-events-none absolute -right-40 top-10 h-[28rem] w-[28rem] rounded-full bg-gold/10 blur-[130px]" />
+      <div className="pointer-events-none absolute -right-40 top-10 h-[28rem] w-[28rem] rounded-full bg-gold/[.03] blur-[130px]" />
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Heading eyebrow="Book online" title={cta.title || 'Book your visit'} text={cta.text} />
 
@@ -45,8 +45,8 @@ export default function Contact({ settings, services, booking, offline }) {
         </div>
 
         {settings.map_embed_url && (
-          <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-10 overflow-hidden rounded-[1.5rem] border border-line">
-            <iframe title="Map" src={settings.map_embed_url} loading="lazy" className="h-80 w-full border-0 grayscale invert-[.92] contrast-[.9] hue-rotate-180" referrerPolicy="no-referrer-when-downgrade" />
+          <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true }} className="mt-10 overflow-hidden rounded-[1.75rem]">
+            <iframe title="Map" src={settings.map_embed_url} loading="lazy" className="h-80 w-full border-0 grayscale-[.3]" referrerPolicy="no-referrer-when-downgrade" />
           </motion.div>
         )}
       </div>

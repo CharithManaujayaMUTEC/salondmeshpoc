@@ -84,7 +84,7 @@ export default function Booking({ services, booking, settings, offline }) {
   }
 
   const reset = () => { setResult(null); setState('idle'); setServiceId(null); setDate(''); setTime(''); setSlots(null); setF({ name: '', phone: '', email: '', notes: '' }) }
-  const err = (k) => errs[k] && <p className="mt-1 text-sm text-red-400">{errs[k][0]}</p>
+  const err = (k) => errs[k] && <p className="mt-1 text-sm text-red-600">{errs[k][0]}</p>
 
   const contactFallback = (
     <div className="grid min-h-[22rem] place-items-center text-center">
@@ -169,7 +169,7 @@ export default function Booking({ services, booking, settings, offline }) {
       </Step>
 
       <Step n={2} title="Pick a date & time" done={!!time}>
-        <input type="date" className="field max-w-xs" style={{ colorScheme: 'dark' }} value={date} min={todayStr()}
+        <input type="date" className="field max-w-xs" value={date} min={todayStr()}
           max={addDays(todayStr(), booking.max_days_ahead || 60)} disabled={!service} onChange={(e) => setDate(e.target.value)} />
         <div className="mt-4 min-h-[3rem]">
           {!service && <p className="text-sm text-mute">Choose a service first.</p>}
@@ -230,7 +230,7 @@ export default function Booking({ services, booking, settings, offline }) {
         </div>
       )}
 
-      {state === 'error' && <p className="flex items-center gap-2 text-red-400"><XCircle size={18} /> We couldn't complete your booking. Please try again or call us{settings.phone ? ` on ${settings.phone}` : ''}.</p>}
+      {state === 'error' && <p className="flex items-center gap-2 text-red-600"><XCircle size={18} /> We couldn't complete your booking. Please try again or call us{settings.phone ? ` on ${settings.phone}` : ''}.</p>}
 
       <button className="btn-gold w-full justify-center sm:w-auto" disabled={!canSubmit} style={!canSubmit ? { opacity: 0.5, cursor: 'not-allowed' } : undefined}>
         {state === 'sending' ? <><Loader2 className="animate-spin" size={18} /> Booking…</> : method === 'online' ? `Pay ${money(due)} & book` : 'Confirm booking'}

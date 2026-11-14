@@ -8,7 +8,7 @@ export function Heading({ eyebrow, title, text, center = true }) {
     <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
       className={`mb-14 md:mb-20 ${center ? 'text-center' : ''}`}>
       {eyebrow && <p className="section-eyebrow mb-5">{eyebrow}</p>}
-      <h2 className="font-display text-4xl font-medium leading-tight text-cream md:text-6xl">{title}</h2>
+      <h2 className="font-display text-4xl text-cream md:text-6xl">{title}</h2>
       {text && <p className={`mt-5 max-w-xl text-mute md:text-lg ${center ? 'mx-auto' : ''}`}>{text}</p>}
     </motion.div>
   )
@@ -65,7 +65,7 @@ export function About({ about, stats }) {
   if (!about?.title && !about?.text) return null
   return (
     <section id="about" className="relative overflow-hidden bg-coal py-24 md:py-36">
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-gold/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-gold/5 blur-[120px]" />
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-2 lg:gap-20">
         <motion.div variants={fade} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} className="relative">
           <div className="absolute -inset-3 rounded-[2rem] border border-gold/25" />
@@ -127,10 +127,10 @@ export function Process({ steps }) {
                 <motion.div key={s.id} variants={fade} custom={0} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-40px' }}
                   onMouseEnter={() => setActive(i)} className="relative flex items-center gap-5 md:gap-8">
                   <div className={`hex-frame z-10 h-[4.7rem] w-[4.2rem] shrink-0 transition-all duration-500 ${on ? 'scale-110 text-gold' : 'text-gold/70'}`}
-                    style={on ? { filter: 'drop-shadow(0 0 14px rgba(218,200,175,.45))' } : undefined}>
+                    style={on ? { filter: 'drop-shadow(0 8px 16px rgba(0,0,0,.25))' } : undefined}>
                     <Icon name={s.icon} size={24} strokeWidth={1.4} />
                   </div>
-                  <div className={`flex-1 rounded-2xl border p-6 transition-all duration-500 md:p-7 ${on ? 'border-transparent bg-gold text-ink shadow-[0_20px_50px_-20px_rgba(218,200,175,.35)]' : 'card'}`}>
+                  <div className={`flex-1 rounded-2xl border p-6 transition-all duration-500 md:p-7 ${on ? 'border-transparent bg-gold text-ink shadow-[0_20px_50px_-20px_rgba(0,0,0,.45)]' : 'card'}`}>
                     <div className="flex items-baseline justify-between gap-4">
                       <h3 className={`font-display text-2xl md:text-3xl ${on ? 'text-ink' : 'text-cream'}`}>{s.title}</h3>
                       <span className={`font-display text-lg ${on ? 'text-ink/60' : 'text-gold/60'}`}>0{i + 1}</span>

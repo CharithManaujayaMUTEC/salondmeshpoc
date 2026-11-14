@@ -30,7 +30,7 @@ export default function Header({ settings }) {
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-ink/80 backdrop-blur-xl border-b border-line py-3' : 'py-5'}`}
+      className={`theme-dark fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-ink/80 backdrop-blur-xl py-3' : 'py-5'}`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
         <a href="#home" aria-label={settings.site_name}>
@@ -41,7 +41,7 @@ export default function Header({ settings }) {
 
         <nav className="hidden items-center gap-8 lg:flex">
           {links.map(([l, h]) => (
-            <a key={h} href={h} className={`relative text-[.78rem] uppercase tracking-[.2em] transition-colors hover:text-gold ${active === h ? 'text-gold' : 'text-cream/80'}`}>
+            <a key={h} href={h} className={`relative text-[.74rem] font-medium tracking-[.04em] transition-colors hover:text-gold ${active === h ? 'text-gold' : 'text-cream/80'}`}>
               {l}
               {active === h && <motion.span layoutId="nav-dot" className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-gold" />}
             </a>
@@ -49,7 +49,7 @@ export default function Header({ settings }) {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a href="#appointment" className="btn-gold hidden !py-2.5 !px-5 sm:inline-flex">Book now</a>
+          <a href="#appointment" className="btn-gold hidden !py-2 !px-5 !text-[.78rem] sm:inline-flex">Book now</a>
           <button onClick={() => setOpen(true)} className="grid h-11 w-11 place-items-center rounded-full border border-line text-cream lg:hidden" aria-label="Open menu">
             <Menu size={20} />
           </button>
