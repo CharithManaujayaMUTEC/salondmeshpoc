@@ -175,7 +175,7 @@ export default function Booking({ services, booking, settings, offline }) {
           {!service && <p className="text-sm text-mute">Choose a service first.</p>}
           {service && !date && <p className="text-sm text-mute">Select a date to see available times.</p>}
           {service && date && slots === null && <p className="flex items-center gap-2 text-sm text-mute"><Loader2 className="animate-spin" size={16} /> Checking availability…</p>}
-          {service && date && slots && slots.length === 0 && <p className="text-sm text-amber-300">{dateClosed ? 'We are closed on this day.' : 'No times left on this day. Please try another date.'}</p>}
+          {service && date && slots && slots.length === 0 && <p className="text-sm text-gold">{dateClosed ? 'We are closed on this day.' : 'No times left on this day. Please try another date.'}</p>}
           {slots && slots.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {slots.map((s) => (
@@ -198,7 +198,7 @@ export default function Booking({ services, booking, settings, offline }) {
       </Step>
 
       <Step n={4} title="Payment" done={!!method}>
-        {methods.length === 0 ? <p className="text-sm text-amber-300">No payment method is available. Please call us to book.</p> : (
+        {methods.length === 0 ? <p className="text-sm text-gold">No payment method is available. Please call us to book.</p> : (
           <div className="grid gap-3 sm:grid-cols-3">
             {methods.map((m) => {
               const M = METHODS[m]; const I = M.icon
@@ -268,7 +268,7 @@ export function PaymentReturn({ symbol }) {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="card w-full max-w-md p-8 text-center">
         {!b ? <Loader2 className="mx-auto animate-spin text-gold" size={40} /> : cancelled ? (
           <>
-            <XCircle className="mx-auto text-amber-300" size={56} strokeWidth={1.2} />
+            <XCircle className="mx-auto text-gold" size={56} strokeWidth={1.2} />
             <h3 className="mt-5 font-display text-3xl text-cream">Payment cancelled</h3>
             <p className="mt-2 text-mute">Your booking {b.reference} is held but unpaid. Please call us to complete it or choose to pay at the salon.</p>
           </>

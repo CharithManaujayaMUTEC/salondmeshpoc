@@ -127,10 +127,10 @@ export function Process({ steps }) {
                 <motion.div key={s.id} variants={fade} custom={0} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-40px' }}
                   onMouseEnter={() => setActive(i)} className="relative flex items-center gap-5 md:gap-8">
                   <div className={`hex-frame z-10 h-[4.7rem] w-[4.2rem] shrink-0 transition-all duration-500 ${on ? 'scale-110 text-gold' : 'text-gold/70'}`}
-                    style={on ? { filter: 'drop-shadow(0 0 14px rgba(242,166,74,.55))' } : undefined}>
+                    style={on ? { filter: 'drop-shadow(0 0 14px rgba(218,200,175,.45))' } : undefined}>
                     <Icon name={s.icon} size={24} strokeWidth={1.4} />
                   </div>
-                  <div className={`flex-1 rounded-2xl border p-6 transition-all duration-500 md:p-7 ${on ? 'border-transparent bg-gold text-ink shadow-[0_20px_50px_-20px_rgba(242,166,74,.6)]' : 'card'}`}>
+                  <div className={`flex-1 rounded-2xl border p-6 transition-all duration-500 md:p-7 ${on ? 'border-transparent bg-gold text-ink shadow-[0_20px_50px_-20px_rgba(218,200,175,.35)]' : 'card'}`}>
                     <div className="flex items-baseline justify-between gap-4">
                       <h3 className={`font-display text-2xl md:text-3xl ${on ? 'text-ink' : 'text-cream'}`}>{s.title}</h3>
                       <span className={`font-display text-lg ${on ? 'text-ink/60' : 'text-gold/60'}`}>0{i + 1}</span>
